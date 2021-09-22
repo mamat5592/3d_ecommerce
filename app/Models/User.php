@@ -42,4 +42,8 @@ class User extends Authenticatable
     public function bookmarks(){
         return $this->hasMany(\App\Models\Bookmark::class);
     }
+
+    public function skills(){
+        return $this->belongsToMany(\App\Models\Skill::class, 'skill_user');
+    }
 }
