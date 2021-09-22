@@ -32,4 +32,8 @@ class ThreeDModel extends Model
     public function categories(){
         return $this->belongsToMany(\App\Models\Category::class, 'category_three_d_model');
     }
+
+    public function tags(){
+        return $this->belongsToMany(\App\Models\Tag::class, 'tag_three_d_model');
+    }
 }
