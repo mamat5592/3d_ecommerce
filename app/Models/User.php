@@ -34,4 +34,8 @@ class User extends Authenticatable
     public function three_d_models(){
         return $this->hasMany(\App\Models\ThreeDModel::class);
     }
+
+    public function carts(){
+        return $this->hasMany(\App\Models\Cart::class);
+    }
 }
