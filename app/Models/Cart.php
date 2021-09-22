@@ -12,4 +12,9 @@ class Cart extends Model
     public function user(){
         return $this->belongsTo(\App\Models\User::class);
     }
+
+    public function three_d_model(){
+        return $this->belongsTo(\App\Models\ThreeDModel::class);
+    }
+
 }

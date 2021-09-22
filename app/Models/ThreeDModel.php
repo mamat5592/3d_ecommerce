@@ -16,4 +16,8 @@ class ThreeDModel extends Model
     public function bookmarks(){
         return $this->hasMany(\App\Models\Bookmark::class);
     }
+
+    public function carts(){
+        return $this->hasMany(\App\Models\Cart::class);
+    }
 }
