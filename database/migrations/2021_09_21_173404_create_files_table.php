@@ -10,6 +10,7 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('three_d_model_id')->constrained()->onDelete('cascade');
             $table->string('name')->unique();
             $table->string('address')->unique();
             $table->timestamps();

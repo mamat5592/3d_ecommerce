@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class File extends Model
 {
     use HasFactory;
+
+    public function three_d_model(){
+        return $this->belongsTo(\App\Models\ThreeDModel::class);
+    }
 }

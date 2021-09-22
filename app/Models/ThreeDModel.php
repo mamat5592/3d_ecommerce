@@ -20,4 +20,8 @@ class ThreeDModel extends Model
     public function carts(){
         return $this->hasMany(\App\Models\Cart::class);
     }
+
+    public function files(){
+        return $this->hasMany(\App\Models\File::class);
+    }
 }
