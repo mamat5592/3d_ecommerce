@@ -10,6 +10,7 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('three_d_model_id')->constrained()->onDelete('cascade');
             $table->string('address');
             $table->boolean('is_primary');
         });
