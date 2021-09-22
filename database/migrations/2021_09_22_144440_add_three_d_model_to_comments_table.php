@@ -9,14 +9,14 @@ class AddThreeDModelToCommentsTable extends Migration
     public function up()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->foreignId('three_d_model')->constrained()->onDelete('cascade');
+            $table->foreignId('three_d_model_id')->constrained()->onDelete('cascade');
         });
     }
 
     public function down()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn('three_d_model');
+            $table->dropColumn('three_d_model_id');
         });
     }
 }
