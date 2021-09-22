@@ -24,4 +24,8 @@ class ThreeDModel extends Model
     public function files(){
         return $this->hasMany(\App\Models\File::class);
     }
+
+    public function categories(){
+        return $this->belongsToMany(\App\Models\Category::class, 'category_three_d_model');
+    }
 }

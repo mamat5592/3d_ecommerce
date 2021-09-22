@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    public function three_d_models(){
+        return $this->belongsToMany(\App\Models\ThreeDModel::class, 'category_three_d_model');
+    }
 }
