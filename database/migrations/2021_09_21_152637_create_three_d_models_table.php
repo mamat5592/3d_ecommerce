@@ -10,6 +10,7 @@ class CreateThreeDModelsTable extends Migration
     {
         Schema::create('three_d_models', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->text('description');
             $table->text('specification');

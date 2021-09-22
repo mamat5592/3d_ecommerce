@@ -30,4 +30,8 @@ class User extends Authenticatable
     public function comments(){
         return $this->hasMany(\App\Models\Comment::class);
     }
+
+    public function three_d_models(){
+        return $this->hasMany(\App\Models\ThreeDModel::class);
+    }
 }
