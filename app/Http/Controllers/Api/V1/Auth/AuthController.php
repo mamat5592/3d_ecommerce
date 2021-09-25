@@ -59,4 +59,11 @@ class AuthController extends Controller
 
         return response(['message' => 'token revoked!']);
     }
+
+    public function newToken()
+    {
+        auth()->user()->tokens()->delete();
+
+        return response(['token' => auth()->user()->createToken('blah blah')->plainTextToken]);
+    }
 }
