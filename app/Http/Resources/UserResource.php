@@ -17,7 +17,7 @@ class UserResource extends JsonResource
             'bio' => $this->bio,
             'is_newsletter_on' => $this->is_newsletter_on,
             'is_notification_on' => $this->is_notification_on,
-            'comments' => $this->comments,
+            'comments' => new CommentCollection($this->comments()->paginate(3)),
             'three_d_models' => $this->three_d_models,
             'carts' => $this->carts,
             'bookmarks' => $this->bookmarks,

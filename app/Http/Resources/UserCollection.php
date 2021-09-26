@@ -16,11 +16,11 @@ class UserCollection extends ResourceCollection
                 'email' => $user->email,
                 'avatar' => $user->avatar,
                 'bio' => $user->bio,
-                'comments' => $user->comments,
-                'three_d_models' => $user->three_d_models,
-                'carts' => $user->carts,
-                'bookmarks' => $user->bookmarks,
-                'skills' => $user->skills
+                'comments' => new CommentCollection($user->comments()->paginate(3)),
+                'three_d_models' => $user->three_d_models()->paginate(3),
+                'carts' => $user->carts()->paginate(3),
+                'bookmarks' => $user->bookmarks()->paginate(3),
+                'skills' => $user->skills()->paginate(3)
             ];
         });
     }
