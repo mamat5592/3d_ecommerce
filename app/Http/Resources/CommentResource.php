@@ -13,7 +13,7 @@ class CommentResource extends JsonResource
             'user' => new UserDataResource($this->user),
             'text' => $this->text,
             'reply_to' => $this->reply,
-            // 'three_d_model' => new ThreeDModelDataResource($this->three_d_model),
+            'three_d_model' => new ThreeDModelDataResource($this->three_d_model),
             'created_at' => $this->created_at
         ];
     }
