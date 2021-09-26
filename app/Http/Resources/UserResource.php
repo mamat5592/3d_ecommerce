@@ -17,11 +17,12 @@ class UserResource extends JsonResource
             'bio' => $this->bio,
             'is_newsletter_on' => $this->is_newsletter_on,
             'is_notification_on' => $this->is_notification_on,
-            'comments' => new CommentCollection($this->comments()->paginate(3)),
-            'three_d_models' => $this->three_d_models,
-            'carts' => $this->carts,
-            'bookmarks' => $this->bookmarks,
-            'skills' => $this->skills
+            'comments' => new CommentCollection($this->comments()->take(3)->get()),
+            // 'three_d_models' => new ThreeDModelCollection($this->three_d_models()->take(3)->get()),
+            // 'carts' => new CartCollection($this->carts()->take(3)->get()),
+            // 'bookmarks' => new BookmarkCollection($this->bookmarks()->take(3)->get()),
+            // 'skills' => new SkillCollection($this->skills()->take(3)->get()),
+            'joined_at' => $this->created_at
         ];
     }
 }

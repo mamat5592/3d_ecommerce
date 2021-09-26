@@ -10,10 +10,10 @@ class CommentCollection extends ResourceCollection
     {
         return $this->collection->map(function ($comment) {
             return [
-                'user' => $comment->user,
+                'id' => $comment->id,
                 'text' => $comment->text,
-                'replyTo' => $comment->reply,
-                'createdAt' => $comment->createdAt
+                'reply_to' => $comment->reply,
+                'created_at' => $comment->created_at
             ];
         });
     }
