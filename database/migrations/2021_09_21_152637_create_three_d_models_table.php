@@ -14,10 +14,10 @@ class CreateThreeDModelsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->text('specification');
-            $table->integer('view');
-            $table->integer('download');
+            $table->integer('view')->nullable();
+            $table->integer('download')->nullable();
             $table->decimal('price');
-            $table->integer('like');
+            $table->integer('like')->nullable();
             $table->timestamps();
         });
     }
