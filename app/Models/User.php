@@ -48,6 +48,10 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\Bookmark::class);
     }
 
+    public function roles(){
+        return $this->belongsToMany(\App\Models\Role::class, 'role_user');
+    }
+
     public function skills(){
         return $this->belongsToMany(\App\Models\Skill::class, 'skill_user');
     }
