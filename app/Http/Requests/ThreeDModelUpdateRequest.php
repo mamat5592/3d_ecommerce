@@ -19,7 +19,7 @@ class ThreeDModelUpdateRequest extends FormRequest
             'specification' => 'min:20|max:150',
             'view' => 'integer',
             'download' => 'integer',
-            'price' => 'decimal',
+            'price' => 'between:0,9999999.99',
             'like' => 'integer'
         ];
     }
