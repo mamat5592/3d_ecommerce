@@ -3,30 +3,21 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(UserStoreRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|min:3|max:15',
-            'username' => 'required|min:3|max:15|unique:users,username',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|max:15',
-            'avatar' => 'url',
-            'bio' => 'string',
-            'is_newsletter_on' => 'boolean',
-            'is_notification_on' => 'boolean'
-        ]);
+        $request = $request->all();
+        $request['password'] = bcrypt($request['password']);
 
-        $validated['password'] = bcrypt($validated['password']);
+        User::create($request);
 
-        User::create($validated);
-
-        return response(['message' => "everything is ok! you'r registered, please login by api/v1/login"]);
+        return response(['message' => "everything is ok! you'r registered, please login by /api/v1/login"]);
     }
 
     public function login(Request $request)
