@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function register(UserStoreRequest $request)
     {
-        $request = $request->all();
+        $request = $request->validated();
         $request['password'] = bcrypt($request['password']);
 
         User::create($request);

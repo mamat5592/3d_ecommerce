@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function update(UserUpdateRequest $request, $id)
     {
-        return User::findOrFail($id)->update($request->all());
+        return User::findOrFail($id)->update($request->validated());
     }
 
     public function destroy($id)

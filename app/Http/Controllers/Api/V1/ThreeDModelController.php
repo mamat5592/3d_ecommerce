@@ -18,7 +18,7 @@ class ThreeDModelController extends Controller
 
     public function store(ThreeDModelStoreRequest $request)
     {
-        $threeDModel = $request->all();
+        $threeDModel = $request->validated();
         $threeDModel['user_id'] = auth()->user()->id;
 
         return ThreeDModel::insert($threeDModel);;
@@ -31,7 +31,7 @@ class ThreeDModelController extends Controller
 
     public function update(ThreeDModelUpdateRequest $request, $id)
     {
-        return ThreeDModel::findOrFail($id)->update($request->all());
+        return ThreeDModel::findOrFail($id)->update($request->validated());
     }
 
     public function destroy($id)
