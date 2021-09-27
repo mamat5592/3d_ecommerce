@@ -9,6 +9,16 @@ class ThreeDModel extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'specification',
+        'view',
+        'download',
+        'price',
+        'like'
+    ];
+
     public function user(){
         return $this->belongsTo(\App\Models\User::class);
     }
