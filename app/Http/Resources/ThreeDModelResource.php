@@ -10,7 +10,7 @@ class ThreeDModelResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => $this->user,
+            'user' => new UserDataResource($this->user),
             'name' => $this->name,
             'description' => $this->description,
             'specification' => $this->specification,
