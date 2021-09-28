@@ -31,11 +31,25 @@ class ThreeDModelController extends Controller
 
     public function update(ThreeDModelUpdateRequest $request, $id)
     {
-        return ThreeDModel::findOrFail($id)->update($request->validated());
+        $threeDModel = ThreeDModel::findOrFail($id);
+
+        if(auth()->user()->cannot('update', $threeDModel)){
+            // abort(403);
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        return $threeDModel->update($request->validated());
     }
 
     public function destroy($id)
     {
-        return ThreeDModel::findOrFail($id)->delete();
+        $threeDModel = ThreeDModel::findOrFail($id);
+
+        if(auth()->user()->cannot('update', $threeDModel)){
+            // abort(403);
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        return $threeDModel->delete();
     }
 }

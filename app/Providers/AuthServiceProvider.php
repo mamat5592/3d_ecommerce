@@ -25,6 +25,25 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::before(function ($user, $ability, $moreData) {
+
+            if (!$user->has('roles.permissions')) {
+                return null;
+            }
+
+            if ($user->roles->contains('name', 'owner')) {
+                return true;
+            }
+
+            foreach ($user->roles as $role) {
+
+                $modelName = substr(get_class($moreData[0]), 11);
+                $permName = $modelName . '@' . $ability;
+
+                if ($role->permissions->contains('name', $permName)) {
+                    return true;
+                }
+            }
+        });
     }
 }

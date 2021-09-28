@@ -22,11 +22,25 @@ class UserController extends Controller
 
     public function update(UserUpdateRequest $request, $id)
     {
-        return User::findOrFail($id)->update($request->validated());
+        $user = User::findOrFail($id);
+
+        if(auth()->user()->cannot('update', $user)){
+            // abort(403);
+            return response(['message' => 'not authorized'], 403);
+        }
+        
+        return $user->update($request->validated());
     }
 
     public function destroy($id)
     {
-        return User::findOrFail($id)->delete();
+        $user = User::findOrFail($id);
+
+        if(auth()->user()->cannot('delete', $user)){
+            // abort(403);
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        return $user->delete();
     }
 }

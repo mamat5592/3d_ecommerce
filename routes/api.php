@@ -7,7 +7,7 @@ use \App\Http\Controllers\Api\V1\UserController;
 
 Route::prefix('v1')->group(function () {
 
-    Route::middleware(['auth:sanctum', 'custom.auth'])->group(function () {
+    Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('get-new-token', [AuthController::class, 'newToken']);
 
