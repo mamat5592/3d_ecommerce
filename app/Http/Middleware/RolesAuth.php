@@ -10,19 +10,14 @@ class RolesAuth
     public function handle(Request $request, Closure $next)
     {
         $roles = auth()->user()->roles()->get();
-        $rwhp = $roles->first(); // role with highest priority
 
         foreach ($roles as $role) {
-            if ($role->priority > $rwhp->priority) {
-                $rwhp = $role;
-            }
-        }
+            $permissions = $role->permissions()->get();
 
-        $permissions = $rwhp->permissions()->get();
-
-        foreach ($permissions as $permission) {
-            if ($request->route()->getName() == $permission->route) {
-                return $next($request);
+            foreach ($permissions as $permission) {
+                if ($request->route()->getName() == $permission->route) {
+                    return $next($request);
+                }
             }
         }
 
