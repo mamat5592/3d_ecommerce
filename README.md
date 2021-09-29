@@ -1,3 +1,8 @@
+## About 3D Ecommerce project
+
+This resource includes a Laravel project, which it's output is a site that serves both as a store for users to buy and sell 3D models and as a resource for free models as well.
+Everything about the architecture of this site is well shown in the er diagram, which you can access through [this](https://github.com/mamat5592/3d_ecommerce/tree/main/erd) path. Check them out and help me with their problems, thank you.
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
