@@ -11,6 +11,7 @@ class CreateSkillUserTable extends Migration
         Schema::create('skill_user', function (Blueprint $table) {
             $table->foreignId('skill_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->unique(['skill_id', 'user_id']);
         });
     }
 

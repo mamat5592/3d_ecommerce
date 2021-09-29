@@ -11,6 +11,7 @@ class CreateTagThreeDModelTable extends Migration
         Schema::create('tag_three_d_model', function (Blueprint $table) {
             $table->foreignId('tag_id')->constrained()->onDelete('cascade');
             $table->foreignId('three_d_model_id')->constrained()->onDelete('cascade');
+            $table->unique(['tag_id', 'three_d_model_id']);
         });
     }
 

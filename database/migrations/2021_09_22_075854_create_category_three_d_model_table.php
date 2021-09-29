@@ -11,6 +11,7 @@ class CreateCategoryThreeDModelTable extends Migration
         Schema::create('category_three_d_model', function (Blueprint $table) {
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('three_d_model_id')->constrained()->onDelete('cascade');
+            $table->unique(['category_id', 'three_d_model_id']);
         });
     }
 
