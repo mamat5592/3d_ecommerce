@@ -9,6 +9,13 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'text',
+        'reply',
+        'user_id',
+        'three_d_model_id'
+    ];
+
     public function user(){
         return $this->belongsTo(\App\Models\User::class);
     }
