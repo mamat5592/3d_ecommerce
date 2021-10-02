@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CartStoreRequest;
+use App\Http\Requests\CartUpdateRequest;
 use App\Http\Resources\BookmarkCollection;
 use App\Http\Resources\BookmarkResource;
 use App\Models\Bookmark;
@@ -19,7 +21,7 @@ class BookmarkController extends Controller
         return new BookmarkCollection(Bookmark::all());
     }
 
-    public function store(Request $request)
+    public function store(CartStoreRequest $request)
     {
         if ($request->user()->cannot('create')) {
             return response(['message' => 'not authorized'], 403);
@@ -42,7 +44,7 @@ class BookmarkController extends Controller
         return new BookmarkResource($bookmark);
     }
 
-    public function update(Request $request, $id)
+    public function update(CartUpdateRequest $request, $id)
     {
         if ($request->user()->cannot('update')) {
             return response(['message' => 'not authorized'], 403);
