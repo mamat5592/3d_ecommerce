@@ -45,23 +45,24 @@ class CategoryController extends Controller
 
     public function update(CategoryUpdateRequest $request, $id)
     {
-        if ($request->user()->cannot('update')) {
+        $category = Category::findOrFail($id);
+
+        if ($request->user()->cannot('update', $category)) {
             return response(['message' => 'not authorized'], 403);
         }
 
         $validated = $request->validated();
-        $category = Category::findOrFail($id);
 
         return $category->update($validated);
     }
 
     public function destroy($id)
     {
-        if (auth()->user()->cannot('delete')) {
+        $category = Category::findOrFail($id);
+
+        if (auth()->user()->cannot('delete', $category)) {
             return response(['message' => 'not authorized'], 403);
         }
-        
-        $category = Category::findOrFail($id);
 
         return $category->delete();
     }

@@ -46,23 +46,24 @@ class CartController extends Controller
 
     public function update(CartUpdateRequest $request, $id)
     {
-        if ($request->user()->cannot('update')) {
+        $cart = Cart::findOrFail($id);
+
+        if ($request->user()->cannot('update', $cart)) {
             return response(['message' => 'not authorized'], 403);
         }
 
         $validated = $request->validated();
-        $cart = Cart::findOrFail($id);
 
         return $cart->update($validated);
     }
 
     public function destroy($id)
     {
-        if (auth()->user()->cannot('delete')) {
+        $cart = Cart::findOrFail($id);
+
+        if (auth()->user()->cannot('delete', $cart)) {
             return response(['message' => 'not authorized'], 403);
         }
-        
-        $cart = Cart::findOrFail($id);
 
         return $cart->delete();
     }

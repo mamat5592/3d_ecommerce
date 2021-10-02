@@ -46,23 +46,24 @@ class BookmarkController extends Controller
 
     public function update(CartUpdateRequest $request, $id)
     {
-        if ($request->user()->cannot('update')) {
+        $bookmark = Bookmark::findOrFail($id);
+
+        if ($request->user()->cannot('update', $bookmark)) {
             return response(['message' => 'not authorized'], 403);
         }
 
         $validated = $request->validated();
-        $bookmark = Bookmark::findOrFail($id);
 
         return $bookmark->update($validated);
     }
 
     public function destroy($id)
     {
-        if (auth()->user()->cannot('delete')) {
+        $bookmark = Bookmark::findOrFail($id);
+
+        if (auth()->user()->cannot('delete', $bookmark)) {
             return response(['message' => 'not authorized'], 403);
         }
-        
-        $bookmark = Bookmark::findOrFail($id);
 
         return $bookmark->delete();
     }
