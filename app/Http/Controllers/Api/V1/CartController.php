@@ -26,6 +26,7 @@ class CartController extends Controller
         }
 
         $validated = $request->validated();
+        $validated['user_id'] = $request->user()->id;
 
         return Cart::create($validated);
     }

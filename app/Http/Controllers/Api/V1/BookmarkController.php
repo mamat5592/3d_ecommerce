@@ -26,6 +26,7 @@ class BookmarkController extends Controller
         }
 
         $validated = $request->validated();
+        $validated['user_id'] = $request->user()->id;
 
         return Bookmark::create($validated);
     }
