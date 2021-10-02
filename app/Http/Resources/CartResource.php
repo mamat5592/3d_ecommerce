@@ -10,8 +10,8 @@ class CartResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user' => new UserDataResource($this->user()),
-            'three_d_model' => new UserDataResource($this->three_d_model()),
+            'user' => new UserDataResource($this->user),
+            'three_d_model' => new UserDataResource($this->three_d_model),
             'created_at' => $this->created_at
         ];
     }
