@@ -14,14 +14,14 @@ class ThreeDModelPolicy
 
     public function update(User $user, ThreeDModel $threeDModel)
     {
-        if ($user->id === $threeDModel->id) {
+        if ($user->id === $threeDModel->user()->id) {
             return true;
         }
     }
 
     public function delete(User $user, ThreeDModel $threeDModel)
     {
-        return $user->id === $threeDModel->id;
+        return $user->id === $threeDModel->user()->id;
     }
 
     public function restore(User $user, ThreeDModel $threeDModel)
