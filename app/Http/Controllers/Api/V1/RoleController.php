@@ -25,7 +25,7 @@ class RoleController extends Controller
 
     public function store(RoleStoreRequest $request)
     {
-        if($request->user->cannot('create')){
+        if($request->user()->cannot('create')){
             return response(['message' => 'not authorized'], 403);
         }
 
@@ -49,7 +49,7 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
 
-        if(auth()->user()->cannot('update', $role)){
+        if($request->user()->cannot('update', $role)){
             return response(['message' => 'not authorized'], 403);
         }
 
