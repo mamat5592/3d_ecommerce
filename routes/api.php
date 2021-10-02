@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Controllers\Api\V1\CommentController;
+use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\ThreeDModelController;
 use \App\Http\Controllers\Api\V1\UserController;
 
@@ -13,10 +14,9 @@ Route::prefix('v1')->group(function () {
         Route::post('get-new-token', [AuthController::class, 'newToken']);
 
         Route::resource('users', UserController::class)->except(['create', 'store', 'edit']);
-        Route::resource('3d-models', ThreeDModelController::class)->except(['create', 'edit'])->parameters([
-            '3d-models' => 'threeDModels'
-        ]);
+        Route::resource('3d-models', ThreeDModelController::class)->except(['create', 'edit'])->parameters(['3d-models' => 'threeDModels']);
         Route::resource('comments', CommentController::class)->except(['create', 'edit']);
+        Route::resource('roles', RoleController::class)->except(['create', 'edit']);
     });
 
     Route::post('register', [AuthController::class, 'register']);
