@@ -9,7 +9,13 @@ class Tag extends Model
 {
     use HasFactory;
 
-    public function tags(){
+    public $timestamps = false;
+
+    protected $fillable = [
+        'name'
+    ];
+
+    public function three_d_models(){
         return $this->belongsToMany(\App\Models\ThreeDModel::class, 'tag_three_d_model');
     }
 }
