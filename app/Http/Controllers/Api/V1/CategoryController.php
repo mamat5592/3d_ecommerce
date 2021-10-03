@@ -18,7 +18,7 @@ class CategoryController extends Controller
             return response(['message' => 'not authorized'], 403);
         }
 
-        return new CategoryCollection(Category::all());
+        return new CategoryCollection(Category::paginate(10));
     }
 
     public function store(CategoryStoreRequest $request)

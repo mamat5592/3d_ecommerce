@@ -9,6 +9,16 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
+    public function viewAny(User $user)
+    {
+        return false;
+    }
+
+    public function view(User $user, User $model)
+    {
+        return false;
+    }
+
     public function create(User $user)
     {
         return false;

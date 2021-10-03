@@ -14,13 +14,11 @@ class TagController extends Controller
 {
     public function index()
     {
-        $tags = Tag::all();
-
         if(auth()->user()->cannot('viewAny')){
             return response(['message' => 'not authorized'], 403);
         }
 
-        return new TagCollection($tags);
+        return new TagCollection(Tag::paginate(10));
     }
 
     public function store(TagStoreRequest $request)

@@ -14,13 +14,11 @@ class SkillController extends Controller
 {
     public function index()
     {
-        $skills = Skill::all();
-
         if(auth()->user()->cannot('viewAny')){
             return response(['message' => 'not authorized'], 403);
         }
 
-        return new SkillCollection($skills);
+        return new SkillCollection(Skill::paginate(10));
     }
 
     public function store(SkillStoreRequest $request)

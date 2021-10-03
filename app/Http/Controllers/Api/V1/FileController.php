@@ -18,7 +18,7 @@ class FileController extends Controller
             return response(['message' => 'not authorized'], 403);
         }
 
-        return new FileCollection(File::all());
+        return new FileCollection(File::paginate(10));
     }
 
     public function store(FileStoreRequest $request)

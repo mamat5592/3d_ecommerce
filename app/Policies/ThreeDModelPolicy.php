@@ -12,11 +12,24 @@ class ThreeDModelPolicy
 {
     use HandlesAuthorization;
 
+    public function viewAny(User $user)
+    {
+        return false;
+    }
+
+    public function view(User $user, ThreeDModel $threeDModel)
+    {
+        return false;
+    }
+
+    public function create(User $user)
+    {
+        return false;
+    }
+
     public function update(User $user, ThreeDModel $threeDModel)
     {
-        if ($user->id === $threeDModel->user()->id) {
-            return true;
-        }
+        return $user->id === $threeDModel->user()->id;
     }
 
     public function delete(User $user, ThreeDModel $threeDModel)

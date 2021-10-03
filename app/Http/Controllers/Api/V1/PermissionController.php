@@ -14,16 +14,16 @@ class PermissionController extends Controller
 {
     public function index()
     {
-        if(auth()->user()->cannot('viewAny', )){
+        if (auth()->user()->cannot('viewAny')) {
             return response(['message' => 'not authorized'], 403);
         }
 
-        return new PermissionCollection(Permission::all());
+        return new PermissionCollection(Permission::paginate(10));
     }
 
     public function store(PermissionStoreRequest $request)
     {
-        if($request->user()->cannot('create')){
+        if ($request->user()->cannot('create')) {
             return response(['message' => 'not authorized'], 403);
         }
 
@@ -34,34 +34,35 @@ class PermissionController extends Controller
 
     public function show($id)
     {
-        if(auth()->user()->cannot('view', )){
+        $permission = Permission::findOrFail($id);
+
+        if (auth()->user()->cannot('view', $permission)) {
             return response(['message' => 'not authorized'], 403);
         }
-
-        $permission = Permission::findOrFail($id);
 
         return new PermissionResource($permission);
     }
 
     public function update(PermissionUpdateRequest $request, $id)
     {
-        if($request->user()->cannot('update', )){
+        $permission = Permission::findOrFail($id);
+
+        if ($request->user()->cannot('update', $permission)) {
             return response(['message' => 'not authorized'], 403);
         }
 
         $validated = $request->validated();
-        $permission = Permission::findOrFail($id);
 
         return $permission->update($validated);
     }
 
     public function destroy($id)
     {
-        if(auth()->user()->cannot('delete', )){
+        $permission = Permission::findOrFail($id);
+
+        if (auth()->user()->cannot('delete', $permission)) {
             return response(['message' => 'not authorized'], 403);
         }
-
-        $permission = Permission::findOrFail($id);
 
         return $permission->delete();
     }

@@ -14,13 +14,11 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::all();
-
         if(auth()->user()->cannot('viewAny', $roles)){
             return response(['message' => 'not authorized'], 403);
         }
 
-        return new RoleCollection($roles);
+        return new RoleCollection(Role::paginate(10));
     }
 
     public function store(RoleStoreRequest $request)

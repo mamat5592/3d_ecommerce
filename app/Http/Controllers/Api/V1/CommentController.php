@@ -14,11 +14,19 @@ class CommentController extends Controller
 {
     public function index()
     {
+        if(auth()->user()->cannot('viewAny')){
+            return response(['message' => 'not authorized'], 403);
+        }
+
         return new CommentCollection(Comment::paginate(10));
     }
 
     public function store(CommentStoreRequest $request)
     {
+        if($request->user()->cannot('create')){
+            return response(['message' => 'not authorized'], 403);
+        }
+
         $validated = $request->validated();
         $validated['user_id'] = $request->user()->id;
 
@@ -27,7 +35,13 @@ class CommentController extends Controller
 
     public function show($id)
     {
-        return new CommentResource(Comment::findOrFail($id));
+        $comment = Comment::findOrFail($id);
+
+        if(auth()->user()->cannot('view', $comment)){
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        return new CommentResource($comment);
     }
 
     public function update(CommentUpdateRequest $request, $id)
@@ -35,7 +49,6 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
 
         if($request->user()->cannot('update', $comment)){
-            // abort(403);
             return response(['message' => 'not authorized'], 403);
         }
 
@@ -47,7 +60,6 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
 
         if(auth()->user()->cannot('delete', $comment)){
-            // abort(403);
             return response(['message' => 'not authorized'], 403);
         }
 

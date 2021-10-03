@@ -18,7 +18,7 @@ class CartController extends Controller
             return response(['message' => 'not authorized'], 403);
         }
 
-        return new CartCollection(Cart::all());
+        return new CartCollection(Cart::paginate(10));
     }
 
     public function store(CartStoreRequest $request)

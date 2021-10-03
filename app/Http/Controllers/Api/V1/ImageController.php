@@ -18,7 +18,7 @@ class ImageController extends Controller
             return response(['message' => 'not authorized'], 403);
         }
         
-        return new ImageCollection(Image::all());
+        return new ImageCollection(Image::paginate(10));
     }
 
     public function store(ImageStoreRequest $request)

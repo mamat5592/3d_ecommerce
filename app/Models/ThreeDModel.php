@@ -11,6 +11,7 @@ class ThreeDModel extends Model
 
     protected $fillable = [
         'name',
+        'user_id',
         'description',
         'specification',
         'view',

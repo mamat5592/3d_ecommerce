@@ -13,43 +13,57 @@ class ThreeDModelController extends Controller
 {
     public function index()
     {
-        return new ThreeDModelCollection(ThreeDModel::paginate(4));
+        if (auth()->user()->cannot('viewAny')) {
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        return new ThreeDModelCollection(ThreeDModel::paginate(10));
     }
 
     public function store(ThreeDModelStoreRequest $request)
     {
-        $threeDModel = $request->validated();
-        $threeDModel['user_id'] = auth()->user()->id;
+        if ($request->user()->cannot('create')) {
+            return response(['message' => 'not authorized'], 403);
+        }
 
-        return ThreeDModel::insert($threeDModel);;
+        $validated = $request->validated();
+        $validated['user_id'] = $request->user()->id;
+
+        return ThreeDModel::create($validated);
     }
 
     public function show($id)
     {
-        return new ThreeDModelResource(ThreeDModel::findOrFail($id));
+        $three_d_model = ThreeDModel::findOrFail($id);
+
+        if (auth()->user()->cannot('view', $three_d_model)) {
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        return new ThreeDModelResource($three_d_model);
     }
 
     public function update(ThreeDModelUpdateRequest $request, $id)
     {
-        $threeDModel = ThreeDModel::findOrFail($id);
+        $three_d_model = ThreeDModel::findOrFail($id);
 
-        if(auth()->user()->cannot('update', $threeDModel)){
-            // abort(403);
+        if ($request->user()->cannot('update', $three_d_model)) {
             return response(['message' => 'not authorized'], 403);
         }
 
-        return $threeDModel->update($request->validated());
+        $validated = $request->validated();
+
+        return $three_d_model->update($validated);
     }
 
     public function destroy($id)
     {
-        $threeDModel = ThreeDModel::findOrFail($id);
+        $three_d_model = ThreeDModel::findOrFail($id);
 
-        if(auth()->user()->cannot('update', $threeDModel)){
-            // abort(403);
+        if (auth()->user()->cannot('delete', $three_d_model)) {
             return response(['message' => 'not authorized'], 403);
         }
 
-        return $threeDModel->delete();
+        return $three_d_model->delete();
     }
 }

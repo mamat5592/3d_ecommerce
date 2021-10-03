@@ -18,7 +18,7 @@ class BookmarkController extends Controller
             return response(['message' => 'not authorized'], 403);
         }
 
-        return new BookmarkCollection(Bookmark::all());
+        return new BookmarkCollection(Bookmark::paginate(10));
     }
 
     public function store(CartStoreRequest $request)
