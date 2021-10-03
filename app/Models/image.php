@@ -9,6 +9,12 @@ class Image extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'three_d_model_id',
+        'address',
+        'is_primary'
+    ];
+
     public function three_d_model(){
         return $this->belongsTo(\App\Models\ThreeDModel::class);
     }
