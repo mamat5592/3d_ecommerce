@@ -28,7 +28,7 @@ class FileController extends Controller
         }
 
         $validated = $request->validated();
-        $validated['address'] = ''; // TODO
+        $validated['address'] = 'file address'; // TODO
 
         return File::create($validated);
     }
