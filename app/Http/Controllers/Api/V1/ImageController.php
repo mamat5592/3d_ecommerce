@@ -28,6 +28,7 @@ class ImageController extends Controller
         }
 
         $validated = $request->validated();
+        $validated['address'] = 'image address'; // TODO
 
         return Image::create($validated);
     }
