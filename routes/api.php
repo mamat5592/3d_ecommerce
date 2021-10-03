@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\V1\PermissionController;
 use App\Http\Controllers\Api\V1\RoleController;
 use App\Http\Controllers\Api\V1\ThreeDModelController;
 use \App\Http\Controllers\Api\V1\UserController;
+use \App\Http\Controllers\Api\V1\FileController;
 
 Route::prefix('v1')->group(function () {
 
@@ -25,6 +26,7 @@ Route::prefix('v1')->group(function () {
         Route::resource('bookmarks', BookmarkController::class)->except(['create', 'edit']);
         Route::resource('carts', CartController::class)->except(['create', 'edit']);
         Route::resource('categories', CategoryController::class)->except(['create', 'edit']);
+        Route::resource('files', FileController::class)->except(['create', 'edit']);
     });
 
     Route::post('register', [AuthController::class, 'register']);
