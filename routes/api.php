@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\V1\ThreeDModelController;
 use \App\Http\Controllers\Api\V1\UserController;
 use \App\Http\Controllers\Api\V1\FileController;
 use App\Http\Controllers\Api\V1\ImageController;
+use App\Http\Controllers\Api\V1\SkillController;
 
 Route::prefix('v1')->group(function () {
 
@@ -29,6 +30,7 @@ Route::prefix('v1')->group(function () {
         Route::resource('categories', CategoryController::class)->except(['create', 'edit']);
         Route::resource('files', FileController::class)->except(['create', 'edit']);
         Route::resource('images', ImageController::class)->except(['create', 'edit']);
+        Route::resource('skills', SkillController::class)->except(['create', 'edit']);
     });
 
     Route::post('register', [AuthController::class, 'register']);
