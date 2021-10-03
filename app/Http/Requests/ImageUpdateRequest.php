@@ -14,7 +14,6 @@ class ImageUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'three_d_model_id' => ['required', 'integer', 'exists:three_d_models,id'],
             'is_primary' => ['boolean', 'boolean']
         ];
     }

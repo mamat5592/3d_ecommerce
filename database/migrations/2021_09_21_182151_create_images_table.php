@@ -12,7 +12,7 @@ class CreateImagesTable extends Migration
             $table->id();
             $table->foreignId('three_d_model_id')->constrained()->onDelete('cascade');
             $table->string('address');
-            $table->boolean('is_primary');
+            $table->boolean('is_primary')->default(false);
         });
     }
 
