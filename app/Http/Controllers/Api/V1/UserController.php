@@ -104,4 +104,42 @@ class UserController extends Controller
 
         return response(['message' => 'user role removed seccessfully.'], 200);
     }
+
+    public function add_skill(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $validated = $request->validate([
+            'skill_id' => ['required', 'integer', 'numeric', 'exists:skills,id']
+        ]);
+
+        if ($request->user()->cannot('add_skill', $user)) {
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        $user->skills()->attach($validated['skill_id']);
+
+        return response(['message' => 'skill added to user seccessfully.'], 200);
+    }
+
+    public function remove_skill(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $validated = $request->validate([
+            'skill_id' => ['required', 'integer', 'numeric', 'exists:skills,id']
+        ]);
+
+        if(!$user->skills->contains($validated['skill_id'])){
+            return response(['message' => 'user has not that skill'], 403);
+        }
+
+        if ($request->user()->cannot('remove_skill', $user)) {
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        $user->skills()->detach($validated['skill_id']);
+
+        return response(['message' => 'user skill removed seccessfully.'], 200);
+    }
 }

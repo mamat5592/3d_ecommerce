@@ -37,6 +37,9 @@ Route::prefix('v1')->group(function () {
         Route::post('users/{id}/add-role', [UserController::class, 'add_role']);
         Route::post('users/{id}/remove-role', [UserController::class, 'remove_role']);
 
+        Route::post('users/{id}/add-skill', [UserController::class, 'add_skill']);
+        Route::post('users/{id}/remove-skill', [UserController::class, 'remove_skill']);
+
         Route::post('roles/{id}/add-permission', [RoleController::class, 'add_permission']);
         Route::post('roles/{id}/remove-permission', [RoleController::class, 'remove_permission']);
     });

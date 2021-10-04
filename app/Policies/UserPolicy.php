@@ -53,4 +53,14 @@ class UserPolicy
     {
         return false;
     }
+
+    public function add_skill(User $user, User $model)
+    {
+        return $user->id === $model->id;
+    }
+
+    public function remove_skill(User $user, User $model)
+    {
+        return $user->id === $model->id;
+    }
 }
