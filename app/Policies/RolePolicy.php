@@ -44,4 +44,14 @@ class RolePolicy
     {
         return false;
     }
+
+    public function add_permission(User $user, Role $role)
+    {
+        return false;
+    }
+
+    public function remove_permission(User $user, Role $role)
+    {
+        return false;
+    }
 }
