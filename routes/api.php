@@ -33,6 +33,9 @@ Route::prefix('v1')->group(function () {
         Route::resource('images', ImageController::class)->except(['create', 'edit']);
         Route::resource('skills', SkillController::class)->except(['create', 'edit']);
         Route::resource('tags', TagController::class)->except(['create', 'edit']);
+
+        Route::post('roles/{id}/add-permission', [RoleController::class, 'add_permission']);
+        Route::post('roles/{id}/remove-permission', [RoleController::class, 'remove_permission']);
     });
 
     Route::post('register', [AuthController::class, 'register']);
