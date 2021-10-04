@@ -43,4 +43,14 @@ class UserPolicy
     {
         return false;
     }
+
+    public function add_role(User $user, User $model)
+    {
+        return false;
+    }
+
+    public function remove_role(User $user, User $model)
+    {
+        return false;
+    }
 }
