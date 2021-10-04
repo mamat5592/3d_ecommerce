@@ -19,9 +19,10 @@ class UserResource extends JsonResource
             'is_notification_on' => $this->is_notification_on,
             'comments' => new CommentCollection($this->comments()->take(3)->get()),
             'three_d_models' => new ThreeDModelCollection($this->three_d_models()->take(3)->get()),
-            // 'carts' => new CartCollection($this->carts()->take(3)->get()),
-            // 'bookmarks' => new BookmarkCollection($this->bookmarks()->take(3)->get()),
-            // 'skills' => new SkillCollection($this->skills()->take(3)->get()),
+            'carts' => new CartCollection($this->carts()->take(3)->get()),
+            'bookmarks' => new BookmarkCollection($this->bookmarks()->take(3)->get()),
+            'skills' => new SkillCollection($this->skills()->take(3)->get()),
+            'roles' => new RoleCollection($this->roles()->take(3)->get()),
             'joined_at' => $this->created_at
         ];
     }
