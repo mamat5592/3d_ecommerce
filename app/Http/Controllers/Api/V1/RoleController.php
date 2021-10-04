@@ -90,8 +90,12 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
 
         $validated = $request->validate([
-            'permission_id' => ['required', 'integer', 'numeric', 'exists:permissions,id', 'exists:permission_role,permission_id']
+            'permission_id' => ['required', 'integer', 'numeric', 'exists:permissions,id']
         ]);
+        
+        if(!$role->permissions->contains($validated['permission_id'])){
+            return response(['message' => 'role has not that permission'], 403);
+        }
 
         if ($request->user()->cannot('remove_permission', $role)) {
             return response(['message' => 'not authorized'], 403);
