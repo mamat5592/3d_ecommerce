@@ -18,12 +18,12 @@ class ThreeDModelResource extends JsonResource
             'download' => $this->download,
             'price' => $this->price,
             'like' => $this->like,
-            // 'carts' => new CartCollection($this->carts()->take(3)->get()),
-            // 'bookmarks' => new BookmarkCollection($this->bookmarks()->take(3)->get()),
-            // 'files' => new FileCollection($this->files()->take(3)->get()),
-            // 'images' => new ImageCollection($this->images()->take(3)->get()),
+            'carts' => new CartCollection($this->carts()->take(3)->get()),
+            'bookmarks' => new BookmarkCollection($this->bookmarks()->take(3)->get()),
+            'files' => new FileCollection($this->files()->take(3)->get()),
+            'images' => new ImageCollection($this->images()->take(3)->get()),
             'comments' => new CommentCollection($this->comments()->take(3)->get()),
-            // 'categories' => new CategoryCollection($this->categories()->take(3)->get()),
+            'categories' => new CategoryCollection($this->categories()->take(3)->get()),
             'created_at' => $this->created_at
         ];
     }
