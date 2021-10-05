@@ -15,7 +15,11 @@ class AuthController extends Controller
         $request = $request->validated();
         $request['password'] = bcrypt($request['password']);
 
-        User::create($request);
+        $user = User::create($request);
+
+        if(User::all()->count() === 1){ // if that was frist user give him owner role
+            $user->roles()->attach(1); // role 1 is equal to 'owner'
+        }
 
         return response(['message' => "everything is ok! you'r registered, please login by /api/v1/login"]);
     }
