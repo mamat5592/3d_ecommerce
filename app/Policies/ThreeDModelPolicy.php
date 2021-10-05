@@ -46,4 +46,24 @@ class ThreeDModelPolicy
     {
         return false;
     }
+
+    public function add_category(User $user, ThreeDModel $threeDModel)
+    {
+        return $user->id === $threeDModel->user()->id;
+    }
+
+    public function remove_category(User $user, ThreeDModel $threeDModel)
+    {
+        return $user->id === $threeDModel->user()->id;
+    }
+
+    public function add_tag(User $user, ThreeDModel $threeDModel)
+    {
+        return $user->id === $threeDModel->user()->id;
+    }
+
+    public function remove_tag(User $user, ThreeDModel $threeDModel)
+    {
+        return $user->id === $threeDModel->user()->id;
+    }
 }

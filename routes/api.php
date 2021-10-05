@@ -14,6 +14,8 @@ use \App\Http\Controllers\Api\V1\FileController;
 use App\Http\Controllers\Api\V1\ImageController;
 use App\Http\Controllers\Api\V1\SkillController;
 use App\Http\Controllers\Api\V1\TagController;
+use App\Models\Category;
+use App\Models\ThreeDModel;
 
 Route::prefix('v1')->group(function () {
 
@@ -34,14 +36,20 @@ Route::prefix('v1')->group(function () {
         Route::resource('skills', SkillController::class)->except(['create', 'edit']);
         Route::resource('tags', TagController::class)->except(['create', 'edit']);
 
+        Route::post('3d-models/{id}/add-category', [ThreeDModelController::class, 'add_category']);
+        Route::delete('3d-models/{id}/remove-category', [ThreeDModelController::class, 'remove_category']);
+
+        Route::post('3d-models/{id}/add-tag', [ThreeDModelController::class, 'add_tag']);
+        Route::delete('3d-models/{id}/remove-tag', [ThreeDModelController::class, 'remove_tag']);
+
         Route::post('users/{id}/add-role', [UserController::class, 'add_role']);
-        Route::post('users/{id}/remove-role', [UserController::class, 'remove_role']);
+        Route::delete('users/{id}/remove-role', [UserController::class, 'remove_role']);
 
         Route::post('users/{id}/add-skill', [UserController::class, 'add_skill']);
-        Route::post('users/{id}/remove-skill', [UserController::class, 'remove_skill']);
+        Route::delete('users/{id}/remove-skill', [UserController::class, 'remove_skill']);
 
         Route::post('roles/{id}/add-permission', [RoleController::class, 'add_permission']);
-        Route::post('roles/{id}/remove-permission', [RoleController::class, 'remove_permission']);
+        Route::delete('roles/{id}/remove-permission', [RoleController::class, 'remove_permission']);
     });
 
     Route::post('register', [AuthController::class, 'register']);

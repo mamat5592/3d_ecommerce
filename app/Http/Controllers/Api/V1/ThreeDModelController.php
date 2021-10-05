@@ -8,6 +8,8 @@ use App\Http\Requests\ThreeDModelUpdateRequest;
 use App\Http\Resources\ThreeDModelCollection;
 use App\Http\Resources\ThreeDModelResource;
 use App\Models\ThreeDModel;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ThreeDModelController extends Controller
 {
@@ -65,5 +67,81 @@ class ThreeDModelController extends Controller
         }
 
         return $three_d_model->delete();
+    }
+
+    public function add_category(Request $request, $id)
+    {
+        $three_d_model = ThreeDModel::findOrFail($id);
+
+        $validated = $request->validate([
+            'category_id' => ['required', 'integer', 'numeric', 'exists:categories,id']
+        ]);
+
+        if ($request->user()->cannot('add_category', $three_d_model)) {
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        $three_d_model->categories()->attach($validated['category_id']);
+
+        return response(['message' => 'category added to 3d model seccessfully.'], 200);
+    }
+
+    public function remove_category(Request $request, $id)
+    {
+        $three_d_model = ThreeDModel::findOrFail($id);
+
+        $validated = $request->validate([
+            'category_id' => ['required', 'integer', 'numeric', 'exists:categories,id']
+        ]);
+
+        if (!$three_d_model->categories->contains($validated['category_id'])) {
+            return response(['message' => '3d model has not that category'], 403);
+        }
+
+        if ($request->user()->cannot('remove_category', $three_d_model)) {
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        $three_d_model->categories()->detach($validated['category_id']);
+
+        return response(['message' => '3d model category removed seccessfully.'], 200);
+    }
+
+    public function add_tag(Request $request, $id)
+    {
+        $three_d_model = ThreeDModel::findOrFail($id);
+
+        $validated = $request->validate([
+            'tag_id' => ['required', 'integer', 'numeric', 'exists:tags,id']
+        ]);
+
+        if ($request->user()->cannot('add_tag', $three_d_model)) {
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        $three_d_model->tags()->attach($validated['tag_id']);
+
+        return response(['message' => 'tag added to 3d model seccessfully.'], 200);
+    }
+
+    public function remove_tag(Request $request, $id)
+    {
+        $three_d_model = ThreeDModel::findOrFail($id);
+
+        $validated = $request->validate([
+            'tag_id' => ['required', 'integer', 'numeric', 'exists:tags,id']
+        ]);
+
+        if (!$three_d_model->tags->contains($validated['tag_id'])) {
+            return response(['message' => '3d model has not that tag'], 403);
+        }
+
+        if ($request->user()->cannot('remove_tag', $three_d_model)) {
+            return response(['message' => 'not authorized'], 403);
+        }
+
+        $three_d_model->tags()->detach($validated['tag_id']);
+
+        return response(['message' => '3d model tag removed seccessfully.'], 200);
     }
 }
