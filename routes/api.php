@@ -14,7 +14,6 @@ use \App\Http\Controllers\Api\V1\FileController;
 use App\Http\Controllers\Api\V1\ImageController;
 use App\Http\Controllers\Api\V1\SkillController;
 use App\Http\Controllers\Api\V1\TagController;
-use App\Models\ThreeDModel;
 
 Route::prefix('v1')->group(function () {
 
@@ -38,13 +37,11 @@ Route::prefix('v1')->group(function () {
 
         Route::post('3d-models/{id}/add-category', [ThreeDModelController::class, 'add_category']);
         Route::delete('3d-models/{id}/remove-category', [ThreeDModelController::class, 'remove_category']);
-
         Route::post('3d-models/{id}/add-tag', [ThreeDModelController::class, 'add_tag']);
         Route::delete('3d-models/{id}/remove-tag', [ThreeDModelController::class, 'remove_tag']);
 
         Route::post('users/{id}/add-role', [UserController::class, 'add_role']);
         Route::delete('users/{id}/remove-role', [UserController::class, 'remove_role']);
-
         Route::post('users/{id}/add-skill', [UserController::class, 'add_skill']);
         Route::delete('users/{id}/remove-skill', [UserController::class, 'remove_skill']);
 
