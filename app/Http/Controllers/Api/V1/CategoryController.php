@@ -14,10 +14,6 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->cannot('viewAny')) {
-            return response(['message' => 'not authorized'], 403);
-        }
-
         return new CategoryCollection(Category::paginate(10));
     }
 
@@ -35,11 +31,6 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = Category::findOrFail($id);
-
-        if (auth()->user()->cannot('view', $category)) {
-            return response(['message' => 'not authorized'], 403);
-        }
-
         return new CategoryResource($category);
     }
 

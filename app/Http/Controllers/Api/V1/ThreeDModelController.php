@@ -15,10 +15,6 @@ class ThreeDModelController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->cannot('viewAny')) {
-            return response(['message' => 'not authorized'], 403);
-        }
-
         return new ThreeDModelCollection(ThreeDModel::paginate(10));
     }
 
@@ -37,10 +33,8 @@ class ThreeDModelController extends Controller
     public function show($id)
     {
         $three_d_model = ThreeDModel::findOrFail($id);
-
-        if (auth()->user()->cannot('view', $three_d_model)) {
-            return response(['message' => 'not authorized'], 403);
-        }
+        
+        $three_d_model->update(['view' => $three_d_model->view + 1]); // increase 3d model's view 
 
         return new ThreeDModelResource($three_d_model);
     }

@@ -14,10 +14,6 @@ class SkillController extends Controller
 {
     public function index()
     {
-        if(auth()->user()->cannot('viewAny')){
-            return response(['message' => 'not authorized'], 403);
-        }
-
         return new SkillCollection(Skill::paginate(10));
     }
 
@@ -35,11 +31,6 @@ class SkillController extends Controller
     public function show($id)
     {
         $skill = Skill::findOrFail($id);
-
-        if(auth()->user()->cannot('view', $skill)){
-            return response(['message' => 'not authorized'], 403);
-        }
-
         return new SkillResource($skill);
     }
 

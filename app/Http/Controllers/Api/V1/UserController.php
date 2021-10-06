@@ -14,10 +14,6 @@ class UserController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->cannot('viewAny')) {
-            return response(['message' => 'not authorized'], 403);
-        }
-
         return new UserCollection(User::paginate(10));
     }
 
@@ -35,11 +31,6 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-
-        if (auth()->user()->cannot('view', $user)) {
-            return response(['message' => 'not authorized'], 403);
-        }
-
         return new UserResource($user);
     }
 

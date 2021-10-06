@@ -14,7 +14,6 @@ use \App\Http\Controllers\Api\V1\FileController;
 use App\Http\Controllers\Api\V1\ImageController;
 use App\Http\Controllers\Api\V1\SkillController;
 use App\Http\Controllers\Api\V1\TagController;
-use App\Models\Category;
 use App\Models\ThreeDModel;
 
 Route::prefix('v1')->group(function () {
@@ -23,18 +22,19 @@ Route::prefix('v1')->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('get-new-token', [AuthController::class, 'newToken']);
 
-        Route::resource('users', UserController::class)->except(['create', 'edit']);
-        Route::resource('3d-models', ThreeDModelController::class)->except(['create', 'edit'])->parameters(['3d-models' => 'threeDModels']);
-        Route::resource('comments', CommentController::class)->except(['create', 'edit']);
+        Route::resource('users', UserController::class)->only(['store', 'update', 'destroy']);
+        Route::resource('3d-models', ThreeDModelController::class)->only(['store', 'update', 'destroy'])->parameters(['3d-models' => 'threeDModels']);
+        Route::resource('comments', CommentController::class)->only(['store', 'update', 'destroy']);
+        Route::resource('categories', CategoryController::class)->only(['store', 'update', 'destroy']);
+        Route::resource('images', ImageController::class)->only(['store', 'update', 'destroy']);
+        Route::resource('skills', SkillController::class)->only(['store', 'update', 'destroy']);
+        Route::resource('tags', TagController::class)->only(['store', 'update', 'destroy']);
+
         Route::resource('roles', RoleController::class)->except(['create', 'edit']);
         Route::resource('permissions', PermissionController::class)->except(['create', 'edit']);
         Route::resource('bookmarks', BookmarkController::class)->except(['create', 'edit']);
         Route::resource('carts', CartController::class)->except(['create', 'edit']);
-        Route::resource('categories', CategoryController::class)->except(['create', 'edit']);
         Route::resource('files', FileController::class)->except(['create', 'edit']);
-        Route::resource('images', ImageController::class)->except(['create', 'edit']);
-        Route::resource('skills', SkillController::class)->except(['create', 'edit']);
-        Route::resource('tags', TagController::class)->except(['create', 'edit']);
 
         Route::post('3d-models/{id}/add-category', [ThreeDModelController::class, 'add_category']);
         Route::delete('3d-models/{id}/remove-category', [ThreeDModelController::class, 'remove_category']);
@@ -54,4 +54,12 @@ Route::prefix('v1')->group(function () {
 
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
+
+    Route::resource('users', UserController::class)->only(['index', 'show']);
+    Route::resource('3d-models', ThreeDModelController::class)->only(['index', 'show'])->parameters(['3d-models' => 'threeDModels']);
+    Route::resource('comments', CommentController::class)->only(['index', 'show']);
+    Route::resource('categories', CategoryController::class)->only(['index', 'show']);
+    Route::resource('images', ImageController::class)->only(['index', 'show']);
+    Route::resource('skills', SkillController::class)->only(['index', 'show']);
+    Route::resource('tags', TagController::class)->only(['index', 'show']);
 });

@@ -14,10 +14,6 @@ class CommentController extends Controller
 {
     public function index()
     {
-        if(auth()->user()->cannot('viewAny')){
-            return response(['message' => 'not authorized'], 403);
-        }
-
         return new CommentCollection(Comment::paginate(10));
     }
 
@@ -36,11 +32,6 @@ class CommentController extends Controller
     public function show($id)
     {
         $comment = Comment::findOrFail($id);
-
-        if(auth()->user()->cannot('view', $comment)){
-            return response(['message' => 'not authorized'], 403);
-        }
-
         return new CommentResource($comment);
     }
 

@@ -14,10 +14,6 @@ class ImageController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->cannot('viewAny')) {
-            return response(['message' => 'not authorized'], 403);
-        }
-        
         return new ImageCollection(Image::paginate(10));
     }
 
@@ -36,11 +32,6 @@ class ImageController extends Controller
     public function show($id)
     {
         $image = Image::findOrFail($id);
-
-        if (auth()->user()->cannot('view', $image)) {
-            return response(['message' => 'not authorized'], 403);
-        }
-
         return new ImageResource($image);
     }
 
